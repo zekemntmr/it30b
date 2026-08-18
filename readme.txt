@@ -14,7 +14,7 @@ INSERT INTO <table_name_in_plural>
 # utility commands
 \! cls 
 
-mysql -u root -p  --databases library_db > D:\dev\it30b\backups
+mysqldump -u root -p  --databases library_db > D:\dev\it30b\backups
 
 backup time -- source D:\dev\it30b\backups\08182026_library_db.sql (directory of the backup)
 
