@@ -2,7 +2,9 @@ create database <database_name>;
 connect <database_name>;
 show databases;
 create table <table_name>_in_plural>;
-INSERT INTO <table_name_in_plural>(columns)
+INSERT INTO <table_name_in_plural>
+    (columns) values
+    (values);
 
 
 
