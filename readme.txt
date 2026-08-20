@@ -9,8 +9,9 @@ INSERT INTO <table_name_in_plural>
 
 ALTER TABLE <table_name> add column <column_name> TIMESTAMP NULL DEFAULT NULL;
 
+INSERT METHOD -- INSERT INTO students(student_first_name,student_last_name,student_course) VALUES ("MISHIMA","KAZUYA","BSIT");
 
-
+UPDATE -- UPDATE students SET student_created_at = CURRENT_TIMESTAMP WHERE student_created_at IS NULL
 
 
 # utility commands
