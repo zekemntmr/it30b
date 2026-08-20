@@ -7,6 +7,8 @@ INSERT INTO <table_name_in_plural>
     (values);
 
 
+ALTER TABLE <table_name> add column <column_name> TIMESTAMP NULL DEFAULT NULL;
+
 
 
 
