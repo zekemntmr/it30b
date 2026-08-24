@@ -5,6 +5,13 @@ create table <table_name>_in_plural>;
 INSERT INTO <table_name_in_plural>
     (columns) values
     (values);
+CReate table books(
+    book_id INT AUTO_INCREMENT PRIMARY KEY,
+    book_title varchar(100) not null,
+    book_author varchar(100) not null,
+    book_category varchar(50) not null,
+    book_created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 
 
 ALTER TABLE <table_name> add column <column_name> TIMESTAMP NULL DEFAULT NULL;
