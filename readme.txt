@@ -37,3 +37,12 @@ ALTER TABLE <table_name> add column <column_name> TIMESTAMP NULL DEFAULT NULL; -
 UPDATE -- UPDATE students SET student_created_at = CURRENT_TIMESTAMP WHERE student_created_at IS NULL -- update
 
 ALTER TABLE students MODIFY COLUMN  student_created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP; -- automated student_created_at timestamp when adding new data
+
+joins table -- select br.borrow_id, s.student_id,
+    CONCAT(s.student_first_name, ' ', s.student_last_name) AS student_name, s.student_course,
+    b.book_title, b.book_author, b.book_category,
+    br.borrow_date 
+FROM borrow br
+    JOIN students s ON br.student_id = s.student_id
+    JOIN books b ON br.book_id = s.student_id
+ORDER BY br.borrow_date DESC;
