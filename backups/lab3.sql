@@ -3,7 +3,7 @@ create table borrow(
     student_id int not null,
     book_id int not null,
     borrow_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    borrow_return_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    borrow_return_date TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_borrow_student FOREIGN KEY (student_id) REFERENCES students(student_id),
     CONSTRAINT fk_borrow_book FOREIGN KEY (book_id) REFERENCES books(book_id)
     );
@@ -25,3 +25,10 @@ FROM borrow br
     JOIN students s ON br.student_id = s.student_id
     JOIN books b ON br.book_id = s.student_id
 ORDER BY br.borrow_date DESC; 
+
+ALTER TABLE borrow
+MODIFY  borrow_return_date TIMESTAMP NULL DEFAULT NULL;
+
+UPDATE borrow
+set borrow_return_date = NULL
+WHERE borrow_return_date = '2026-08-15 08:30:00';
