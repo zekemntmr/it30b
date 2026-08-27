@@ -23,3 +23,22 @@ create table books(
     book_author varchar(100) not null,
     book_category varchar(50) not null
     book_created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);
+
+insert into borrow(student_id, book_id) values (1,1),(1,2),(3,2);
+
+select br.borrow_id, s.student_id,
+    CONCAT(s.student_first_name, ' ', s.student_last_name) AS student_name, s.student_course,
+    b.book_title, b.book_author, b.book_category,
+    br.borrow_date 
+FROM borrow br
+    JOIN students s ON br.student_id = s.student_id
+    JOIN books b ON br.book_id = s.student_id
+ORDER BY br.borrow_date DESC; 
+
+ALTER TABLE borrow
+MODIFY  borrow_return_date TIMESTAMP NULL DEFAULT NULL;
+
+UPDATE borrow
+set borrow_return_date = NULL
+WHERE borrow_return_date = '2026-08-15 08:30:00';
+    book_created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);
