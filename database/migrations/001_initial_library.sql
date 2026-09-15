@@ -1,5 +1,5 @@
 -- #1 Students' Table
-CREATE TABLE  IF NOT EXISTS studentss (
+CREATE TABLE  IF NOT EXISTS students (
     -- Primary Key for the students table
     student_id INT PRIMARY KEY AUTO_INCREMENT,
 
@@ -11,7 +11,7 @@ CREATE TABLE  IF NOT EXISTS studentss (
     student_course VARCHAR(50) NOT NULL,
 
     -- Students' Created at Timestamp
-    student_created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    student_created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 
 ) Engine=InnoDB 
 DEFAULT CHARSET=utf8mb4 
@@ -36,7 +36,9 @@ CREATE TABLE IF NOT EXISTS books (
     book_created_at timestamp not null default current_timestamp
 
 
-)
+) ENGINE=InnoDB
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_general_ci;
 
 
 -- #3 Borrow Table
@@ -85,7 +87,7 @@ INSERT INTO books(
     book_author,
     book_category
 ) VALUES 
-('unknown','test','test'),
+('unknown','test1','test1'),
 ('test','test','test'),
 ('test2','test2','test2');
 
