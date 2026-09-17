@@ -21,6 +21,15 @@ try{
     die("Database Connection faileed" . $e->getMessage())
 }
 
+//Session
+session_start();
+
+//Determine Current Section
+$section = $_GET['section'] ??'students';
+
+//Determine CRUD Operation
+$action = $_GET['action'] ??'';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
