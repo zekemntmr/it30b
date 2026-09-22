@@ -49,7 +49,7 @@ if($section==='students' && $action==='create'){
         $lastname = trim($_POST['student_last_name'] ?? '');
         $course = trim($_POST['student_course'] ?? '');
 
-        if($firstname !== && $lastname !=='' && $course!== ''){
+        if($firstname !== '' && $lastname !=='' && $course!== ''){
             $sql ='
             INSERT INTO students(
                 student_first_name,
