@@ -42,6 +42,35 @@ if($section ==='students'){
     $students = $stmt->fetchAll();
 }
 
+// Create Student
+if($section==='students' && $action==='create'){
+    if($_SERVER['REQUEST_METHOD']==='POST'){
+        $firstname = trim($_POST['student_first_name'] ?? '');
+        $lastname = trim($_POST['student_last_name'] ?? '');
+        $course = trim($_POST['student_course'] ?? '');
+
+        if($firstname !== && $lastname !=='' && $course!== ''){
+            $sql ='
+            INSERT INTO students(
+                student_first_name,
+                student_last_name,
+                student_course
+            )
+            VALUES (?,?,?)
+            ';
+
+            $stmt=$pdo->prepare($sql);
+
+            $stmt->execute([
+
+            ]);
+
+            header("Location: index.php?section=students");
+        }
+    }
+
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,6 +89,58 @@ if($section ==='students'){
     <hr>
     <?php if($section === 'students'): ?>
         <h1>Students</h1>
+
+        <p>
+            <a href="index.php?section=students&action=create">
+                Add Student
+            </a>
+        </p>
+
+        <?php if ($action==='create'): ?>
+            <h2>Create Student</h2>
+
+            <form method ="POST">
+                <p>
+                    <label>First Name</label>
+                    <br>
+                    <input type="text"
+                            name="student_first_name"
+                            required               
+                    />
+                </p>
+
+                <p>
+                    <label>Last Name</label>
+                    <br>
+                    <input type="text"
+                            name="student_last_name"
+                            required               
+                    />
+                </p>
+
+                <p>
+                    <label>Course</label>
+                    <br>
+                    <input type="text"
+                            name="student_course"
+                            required               
+                    />
+                </p> 
+                
+            <button type="submit">
+                Save
+            </button>
+
+            <a href="index.php?section=students">
+                Cancel
+            </a>
+            </form>
+        <?php else: ?>  
+        <?php endif;?> 
+
+
+            
+        
         <table>
             <thead>
                 <tr>
