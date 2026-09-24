@@ -71,6 +71,59 @@ if($section==='students' && $action==='create'){
 
 }
 
+
+// Update Student
+if($section==='students' && $action==='update'){
+    $studentId = (int) ($_GET['id']) ?? 00;
+
+
+    // Update Student on Post
+    if($_SERVER['REQUEST_METHOD'] === 'POST')(
+
+        $firstName = trim($_POST['student_first_name']);
+        $lastName = trim($_POST['student_last_name']);
+        $course = trim($_POST['student_course']);
+
+
+
+        $sql=("
+            UPDATE students
+            SET
+                student_first_name = ?,
+                student_last_name = ?,
+                student_course = ?
+            WHERE student_id = ?
+        ")
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt -> execute([
+            $firstName,
+            $lastName,
+            $course,
+            $studentId
+        ]);
+
+        header("Location: index.php?section=students");
+        exit;
+    )
+
+    // Retrieve student info by Default
+    $stmt = $pdo->prepare("
+        SELECT *
+        FROM students
+        WHERE student_id = ?
+    ");
+
+    $stmt->execute([$studentId]);
+
+    $student = $stmt->fetch();
+
+    if(!$student){
+        die("Student Not Found");
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
