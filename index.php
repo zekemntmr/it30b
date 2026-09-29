@@ -79,6 +79,7 @@ if($section==='students' && $action==='create'){
 
 // Update Student
 if($section==='students' && $action==='update'){
+
     $studentId = (int) ($_GET['id']) ?? 00;
 
     // Retrieve student info by Default
@@ -94,7 +95,7 @@ if($section==='students' && $action==='update'){
 
     if(!$student){
         die("Student Not Found");
-
+    }
 
     // Update Student on Post
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -127,14 +128,9 @@ if($section==='students' && $action==='update'){
     };
 
     }
-}
 
 
-//Determine Current Section
-$section = $_GET['section'] ??'books';
 
-//Determine CRUD Operation
-$action = $_GET['action'] ?? '';
 
 //Fetch Books
 if($section ==='books'){
@@ -301,48 +297,7 @@ if($section==='books' && $action==='update'){
                 Cancel
             </a>
             </form>
-        <?php else: ?>
-              <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Course</th>
-                    <th>Created At</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach($students as $student): ?>
-                    <tr>
-                        <td>
-                            <?=htmlspecialchars($student['student_id']) ?>
-                        </td>
-                        <td>
-                            <?=htmlspecialchars($student['student_first_name']) ?>
-                        </td>
-                        <td>
-                            <?=htmlspecialchars($student['student_last_name']) ?>
-                        </td>
-                        <td>
-                            <?=htmlspecialchars($student['student_course']) ?>
-                        </td>
-                        <td>
-                            <?=htmlspecialchars($student['student_created_at']) ?>
-                        </td>
-                        <td>
-                            <a href="index.php?section=students&action=update&id=<?=$student['student_id']?>">
-                                Edit
-                            </a>
-
-                            <a>Delete</a>
-                        </td>
-                    </tr>
-                <?php endforeach?>
-            </tbody>
-        </table>
-        <?php endif;?> 
+        
 
 
         <?php elseif($action==='update'): ?>
@@ -391,6 +346,49 @@ if($section==='books' && $action==='update'){
                 </a>
 
             </form>
+
+        <?php else: ?>
+              <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Course</th>
+                    <th>Created At</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($students as $student): ?>
+                    <tr>
+                        <td>
+                            <?=htmlspecialchars($student['student_id']) ?>
+                        </td>
+                        <td>
+                            <?=htmlspecialchars($student['student_first_name']) ?>
+                        </td>
+                        <td>
+                            <?=htmlspecialchars($student['student_last_name']) ?>
+                        </td>
+                        <td>
+                            <?=htmlspecialchars($student['student_course']) ?>
+                        </td>
+                        <td>
+                            <?=htmlspecialchars($student['student_created_at']) ?>
+                        </td>
+                        <td>
+                            <a href="index.php?section=students&action=update&id=<?=$student['student_id']?>">
+                                Edit
+                            </a>
+
+                            <a>Delete</a>
+                        </td>
+                    </tr>
+                <?php endforeach?>
+            </tbody>
+        </table>
+        <?php endif;?> 
 
             
         
@@ -451,49 +449,7 @@ if($section==='books' && $action==='update'){
             <a href="index.php?section=books">
                 Cancel
             </a>
-            </form>
-        <?php else: ?>
-              <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Book Title</th>
-                    <th>Book Author</th>
-                    <th>Book Category</th>
-                    <th>Created At</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach($books as $book): ?>
-                    <tr>
-                        <td>
-                            <?=htmlspecialchars($book['book_id']) ?>
-                        </td>
-                        <td>
-                            <?=htmlspecialchars($book['book_title']) ?>
-                        </td>
-                        <td>
-                            <?=htmlspecialchars($book['book_author']) ?>
-                        </td>
-                        <td>
-                            <?=htmlspecialchars($book['book_category']) ?>
-                        </td>
-                        <td>
-                            <?=htmlspecialchars($book['book_created_at']) ?>
-                        </td>
-                        <td>
-                            <a href="index.php?section=books&action=update&id=<?=$book['book_id']?>">
-                                Edit
-                            </a>
-
-                            <a>Delete</a>
-                        </td>
-                    </tr>
-                <?php endforeach?>
-            </tbody>
-        </table>
-        <?php endif;?> 
+            </form> 
 
 
         <?php elseif($action==='update'): ?>
@@ -544,6 +500,50 @@ if($section==='books' && $action==='update'){
                 </a>
 
             </form>
+        
+        <?php else: ?>
+              <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Book Title</th>
+                    <th>Book Author</th>
+                    <th>Book Category</th>
+                    <th>Created At</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($books as $book): ?>
+                    <tr>
+                        <td>
+                            <?=htmlspecialchars($book['book_id']) ?>
+                        </td>
+                        <td>
+                            <?=htmlspecialchars($book['book_title']) ?>
+                        </td>
+                        <td>
+                            <?=htmlspecialchars($book['book_author']) ?>
+                        </td>
+                        <td>
+                            <?=htmlspecialchars($book['book_category']) ?>
+                        </td>
+                        <td>
+                            <?=htmlspecialchars($book['book_created_at']) ?>
+                        </td>
+                        <td>
+                            <a href="index.php?section=books&action=update&id=<?=$book['book_id']?>">
+                                Edit
+                            </a>
+
+                            <a>Delete</a>
+                        </td>
+                    </tr>
+                <?php endforeach?>
+            </tbody>
+        </table>
+        <?php endif;?>
+
 
       
     <?php endif;?>
