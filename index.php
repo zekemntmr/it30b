@@ -233,6 +233,18 @@ if($section==='books' && $action==='update'){
     }
 }
 
+//Fetch Borrow Log
+if($section ==='borrow'){
+
+    $stmt = $pdo->query("
+        SELECT *
+        FROM borrow
+        ORDER BY borrow_id DESC
+    ");
+    
+    $students = $stmt->fetchAll();
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -550,6 +562,50 @@ if($section==='books' && $action==='update'){
 
     <?php if($section === 'borrow'): ?>
         <h1>Borrow</h1>
+
+
+        <?php else: ?>
+              <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Book Title</th>
+                    <th>Book Author</th>
+                    <th>Book Category</th>
+                    <th>Created At</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($borrows as $borrow): ?>
+                    <tr>
+                        <td>
+                            <?=htmlspecialchars($borrow['borrow_id']) ?>
+                        </td>
+                        <td>
+                            <?=htmlspecialchars($borrow['student_id']) ?>
+                        </td>
+                        <td>
+                            <?=htmlspecialchars($borrow['book_id']) ?>
+                        </td>
+                        <td>
+                            <?=htmlspecialchars($borrow['borrow_date']) ?>
+                        </td>
+                        <td>
+                            <?=htmlspecialchars($borrow['borrow_return_date']) ?>
+                        </td>
+                        <td>
+                            <a href="index.php?section=borrow&action=update&id=<?=$borrow['borrow_id']?>">
+                                Edit
+                            </a>
+
+                            <a>Delete</a>
+                        </td>
+                    </tr>
+                <?php endforeach?>
+            </tbody>
+        </table>
+        <?php endif;?> 
     <?php endif;?>
 
 </body>
