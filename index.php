@@ -368,8 +368,27 @@ if($section=='borrow'){
 }
 
 
+// Return
+if($section==='borrow' && $action==='return'){
+    $borrowId = (int) ($_GET['id'] ?? 0);
+
+    $stmt = $pdo->prepare("
+        UPATE borrow
+        SET borrow_return_date = CURRENT_TIMESTAMP
+        WHERE borrow_id = ?
+    
+    ");
+
+    $stmt->execute([$borrowId]);
+
+    $_SESSION['alert'] = "Book returned successfully.";
+
+    header("Location: index.php?section=borrow");
+}
+
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
