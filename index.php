@@ -242,7 +242,7 @@ if($section ==='borrow'){
         ORDER BY borrow_id DESC
     ");
     
-    $students = $stmt->fetchAll();
+    $borrows = $stmt->fetchAll();
 }
 
 ?>
