@@ -255,7 +255,7 @@ if($section==='borrow'){
 
 
     // Retrieve Books
-    $stmt = $pdo->prepare("
+    $stmt = $pdo->query("
         SELECT 
             book_id,
             book_title,
@@ -264,7 +264,7 @@ if($section==='borrow'){
         ORDER BY book_title
     ");
 
-    $books = $stmt->fetchAll();
+    $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     $stmt = $pdo->query("
         SELECT
@@ -291,6 +291,38 @@ if($section==='borrow'){
     ");
 
     $borrowRecords = $stmt->fetchAll();
+}
+
+
+// Returned Books Query
+{
+    // Retrieve Students
+    $stmt = $pdo->query("
+        SELECT 
+            borrow.borrow_id,
+            borrow.borrow_date,
+            borrow.borrow_return_date,
+
+            students.student_first_name,
+            students.student_last_name,
+
+            books.book_title,
+            books.book_author
+
+        FROM borrow
+
+        INNER JOIN students
+            ON borrow.student_id = students.student_id
+
+        INNER JOIN books
+            ON borrow.book_id = books.book_id
+        
+        WHERE borrow.borrow_return_date IS NOT NULL
+
+        ORDER BY borrow.borrow_return_date DESC
+    ");
+
+    $returnedBooks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 
@@ -364,62 +396,6 @@ if($section==='borrow' && $action==="create"){
 }
 
 
-// Returned Books Query
-
-if($section==='borrow'){
-    // Retrieve Students
-    $stmt = $pdo->query("
-        SELECT
-            student_id,
-            student_first_name,
-            student_last_name
-        FROM students
-        ORDER BY student_last_name, student_first_name
-    
-    ");
-
-    $students = $stmt->fetch();
-
-
-    // Retrieve Books
-    $stmt = $pdo->prepare("
-        SELECT 
-            book_id,
-            book_title,
-            book_author
-        FROM books
-        ORDER BY book_title
-    ");
-
-    $books = $stmt->fetch();
-
-    $stmt = $pdo->query("
-        SELECT
-            borrow.borrow_id,
-            borrow.borrow_date,
-            borrow.borrow_return_date,
-
-            students.student_first_name,
-            students.student_last_name,
-
-            books.book_title,
-            books.book_author
-
-        FROM borrow
-
-        INNER JOIN students
-            ON borrow.student_id = students.student_id
-
-        INNER JOIN books
-            ON borrow.book_id = books.book_id
-        
-        WHERE borrow.borrow_return_date IS NOT NULL
-
-        ORDER BY borrow.borrow_return_date DESC
-    ");
-
-    $returnedBooks = $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
 
 
 
@@ -797,6 +773,7 @@ if($section==='borrow' && $action==='return'){
                         </option>
                     <?php endforeach; ?>
                 </select>
+                <br>
 
                 <label>Book</label>
                 <br>
@@ -1045,7 +1022,7 @@ if($section==='borrow' && $action==='return'){
 
 </body>
 
-<?php if(!isset($_SESSION['alert'])) :?>
+<?php if(isset($_SESSION['alert'])) :?>
 
     <script>
         alert( <?= json_encode($_SESSION['alert']) ?>);
